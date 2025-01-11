@@ -1,11 +1,9 @@
 from flask import Flask, render_template, request, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
-import psycopg2
-from config import host, user, password, db_name, port
 from models import Wine, User
 from werkzeug.security import generate_password_hash
 from flask_login import LoginManager, UserMixin, login_required, login_user, current_user, logout_user
-from forms import RegistrationForm
+
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'you-will-never-guess'
@@ -36,6 +34,7 @@ def wine_card(id):
 @app.route("/about")
 def about():
     return render_template("about.html")
+
 
 # @app.route("/register", methods=["GET", "POST"])
 # def register():
