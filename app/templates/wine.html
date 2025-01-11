@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block title %}
+{{ data.wine_name }}
+{% endblock %} 
+
+{% block content %}
+<div class="row featurette">
+    <div class="col-md-7 order-md-2">
+      <h2 class="featurette-heading fw-normal lh-1">{{ data.wine_name }}<span class="text-body-secondary"> {{ data.winery_name }}</span></h2>
+      <h4 class="lead">страна производства: {{data.country}}, {{data.region}}</h4>
+      <h4 class="lead">год производства: {{data.year}}</h4>
+      <h4 class="lead">тип вина: {{data.wine_type}}</h4>
+      <h4 class="lead">сорт винограда: {{data.grape}}</h4>
+      <h4 class="lead">рейтинг на vivino: {{data.viv_rating}}</h4>
+      <h4 class="lead">средняя цена: {{data.avg_price}}</h4>
+    </div>
+    <div class="col-md-3 order-md-1">
+      <img src="{{data.img_link}}">
+    </div>
+  </div>
+
+
+{% endblock  %}

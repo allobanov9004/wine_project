@@ -1,0 +1,5 @@
+trydb.py
+__pycache__/
+config.py
+.vscode/
+winenv/
