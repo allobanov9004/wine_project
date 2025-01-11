@@ -4,8 +4,8 @@ import psycopg2
 from config import host, user, password, db_name, port
 from models import Wine, User
 from werkzeug.security import generate_password_hash
-from flask_login import LoginManager, UserMixin, login_required, login_user, current_user, logout_user
-from forms import RegistrationForm
+from flask_login import LoginManager, login_user, current_user
+
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'you-will-never-guess'
