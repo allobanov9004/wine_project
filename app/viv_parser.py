@@ -5,7 +5,7 @@ from time import sleep
 from models import Wine
 from db import db_session
 
-# all_wine_url = "https://www.vivino.com/explore?currency_code=RUB&min_rating=1&order_by=ratings_average&order=desc&page=1&price_range_max=12500&price_range_min=0&vc_only=&wsa_year=null&discount_prices=false&wine_type_ids[]=3&wine_type_ids[]=4&wine_type_ids[]=1&wine_type_ids[]=2&wine_type_ids[]=7&wine_type_ids[]=24"
+
 
 wines_to_db = []
 
@@ -23,7 +23,6 @@ def get_url():
         data = soup.find_all("div", class_="wineCard__wineCard--2dj2T wineCard__large--1tkVl")
         for i in data:
             card_url = "https://vivino.com" + i.find("a").get("href")
-            print(card_url)
             yield card_url
 
 for card_url in get_url():
@@ -48,9 +47,9 @@ for card_url in get_url():
     wines = {"wine_name": name, "wine_type": wine_type, "winery_name": winery, "country": country, "region": region, "grape": grape, "year": year, "avg_price": avg_price, "viv_rating": viv_rating, "img_link": img_url}
     wines_to_db.append(wines)
     
-    print('название: ', name, "\n Год: ", year,'\n компания:', winery,'\n тип вина:', wine_type,'/n страна производства:', country,'\n регион:', region,'\n тип винограда:', grape,'\n рейтинг вивино:', viv_rating,'\n средняя цена', avg_price, '/',img_url, "\n")
+    # print('название: ', name, "\n Год: ", year,'\n компания:', winery,'\n тип вина:', wine_type,'/n страна производства:', country,'\n регион:', region,'\n тип винограда:', grape,'\n рейтинг вивино:', viv_rating,'\n средняя цена', avg_price, '/',img_url, "\n")
 
-print(wines_to_db)
+# print(wines_to_db)
 
 db_session.bulk_insert_mappings(Wine, wines_to_db)
 db_session.commit()

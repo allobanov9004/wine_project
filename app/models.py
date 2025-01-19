@@ -39,7 +39,6 @@ class Wine(Base):
     def __repr__(self):
         return self.wine_name
 
-
     
 if __name__ == "__main__":
     Base.metadata.create_all(bind=engine)

@@ -2,28 +2,31 @@
 
 
 {% block content %}
-<h1>Регистрация</h1>
+<div class="column is-4 is-offset-4">
+  <h3 class="title">Регистрация</h3>
+  <div class="box">
+      <form method="POST" action="/register">
+          <div class="field">
+              <div class="control">
+                  <input class="input is-large" type="email" name="email" placeholder="Email" autofocus="">
+              </div>
+          </div>
 
+          <div class="field">
+              <div class="control">
+                  <input class="input is-large" type="text" name="name" placeholder="Имя пользователя" autofocus="">
+              </div>
+          </div>
 
-<form>
-    <h1 class="h3 mb-3 fw-normal">Для регистрации на сайте введите свои данные</h1>
+          <div class="field">
+              <div class="control">
+                  <input class="input is-large" type="password" name="password" placeholder="Пароль">
+              </div>
+          </div>
 
-
-    <div class="form-floating">
-        <input type="login" class="form-control" id="floatingInput" placeholder="username">
-        <label for="floatingInput">Имя пользователя</label>
-      </div>
-    <div class="form-floating">
-      <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
-      <label for="floatingInput">Электронная почта</label>
-    </div>
-    <div class="form-floating">
-      <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
-      <label for="floatingPassword">Пароль</label>
-    </div>
-
-
-    <button class="btn btn-primary w-100 py-2" type="submit">Отправить</button>
-  </form>
+          <button class="button is-block is-info is-large is-fullwidth">Отправить</button>
+      </form>
+  </div>
+</div>
 
   {% endblock  %}
