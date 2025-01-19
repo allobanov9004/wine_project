@@ -2,7 +2,11 @@ from flask import Flask, render_template, request, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
 from models import Wine, User
 from werkzeug.security import generate_password_hash
+
 from db import db_session
+
+from flask_login import LoginManager, login_user, current_user
+
 
 
 
