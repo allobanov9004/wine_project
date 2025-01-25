@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
-import psycopg2
+from db import db_session
 from config import host, user, password, db_name, port
 from models import Wine, User
 from werkzeug.security import generate_password_hash
@@ -11,6 +11,7 @@ app = Flask(__name__)
 app.config['SECRET_KEY'] = 'you-will-never-guess'
 
 login_manager = LoginManager(app)
+login_manager.init_app(app)
  
 @login_manager.user_loader
 def load_user(user_id):
@@ -37,26 +38,27 @@ def wine_card(id):
 def about():
     return render_template("about.html")
 
-# @app.route("/register", methods=["GET", "POST"])
-# def register():
-#     if request.method == "POST":
-#         # Validate form data
-#         username = request.form.get("username")
-#         password = request.form.get("password")
-#         email = request.form.get("email")
+@app.route("/profile")
+def profile():
+    return render_template("profile.html")
 
-#         if not (username and password and email):
-#             return render_template("register.html", message="All fields are required.")
+@app.route("/register", methods=["GET", "POST"])
+def register():
+    if request.method == "POST":
+        # Validate form data
+        username = request.form.get("username")
+        password = request.form.get("password")
+        email = request.form.get("email")
 
-#         # Hash the password
-#         hashed_password = generate_password_hash(password)
+        if not (username and password and email):
+            return render_template("register.html", message="All fields are required.")
+ 
+        db_session.add(User)
+        db_session.commit()
 
-#         # Store user data in the database
-#         # Your database insertion code goes here
+        return redirect("/login")
 
-#         return redirect("/login")
-
-#     return render_template("register.html")
+    return render_template("register.html")
 
 
 
