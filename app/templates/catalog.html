@@ -6,26 +6,41 @@
 
 {% block content %}
 <h1>Каталог</h1>
+
+
+
+{{ pagination.info }}
+{{ pagination.links }}
 <div class="container">
     <div class="row row-cols-1 row-cols-md-3 mb-3 text-center">
-        {% for el in data %}
+        
+        
+        <table>
+                {% for el in data %}
 
-        <div class="card mb-4 rounded-3 shadow-sm">
-            <div class="card-header py-3">
-            <h4 class="my-0 fw-normal">{{ el.wine_name }}</h4>
-            </div>
-            <div class="card-body">
-            <h1 class="card-title pricing-card-title"> {{ el.avg_price }} <small class="text-muted fw-light">средняя цена</small></h1>
-            <ul class="list-unstyled mt-3 mb-4">
-                <li>{{ el.wine_type }}</li>
-                <li>{{ el.country }}</li>
-                <li>{{ el.year }}</li>
-            </ul>
-            <a href="/wine/{{el.id}}" class="w-100 btn btn-lg btn-outline-primary">Подробнее</a>
-            </div>
-        </div>
+                <div class="card mb-4 rounded-3 shadow-sm">
+                    <div class="card-header py-3">
+                    <h4 class="my-0 fw-normal">{{ el.wine_name }}</h4>
+                    </div>
+                    <div class="card-body">
+                    <h1 class="card-title pricing-card-title"> {{ el.avg_price }} <small class="text-muted fw-light">средняя цена</small></h1>
+                    <ul class="list-unstyled mt-3 mb-4">
+                        <li>{{ el.wine_type }}</li>
+                        <li>{{ el.country }}</li>
+                        <li>{{ el.year }}</li>
+                    </ul>
+                    <a href="/wine/{{el.id}}" class="w-100 btn btn-lg btn-outline-primary">Подробнее</a>
+                    </div>
+                </div>
 
-        {% endfor %}
+                {% endfor %}
+
+            </table>
+            {{ pagination.links }}
+            {{ pagination.info }}
+
+    </div>    
+
     </div>
 </div>
 

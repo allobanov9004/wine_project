@@ -4,7 +4,7 @@ from sqlalchemy.orm import sessionmaker, scoped_session, declarative_base
 
 
 
-engine = create_engine('postgresql+psycopg2://adm:adm123@localhost/project_vine')
+engine = create_engine('postgresql+psycopg2://postgres:1223@localhost/project_wine')
 db_session = scoped_session(sessionmaker(bind=engine))
 
 Base = declarative_base()

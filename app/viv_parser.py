@@ -23,15 +23,17 @@ def get_url():
         data = soup.find_all("div", class_="wineCard__wineCard--2dj2T wineCard__large--1tkVl")
         for i in data:
             card_url = "https://vivino.com" + i.find("a").get("href")
+            print(card_url)
             yield card_url
 
 for card_url in get_url():
     response = requests.get(card_url, headers=headers)
     sleep(1)
     soup = BeautifulSoup(response.text, "lxml")
-    data = soup.find("div", class_="row container")
-    name = data.find("a", class_="wine").text.strip()
-    year = data.find("span", class_="vintage").text.split()[-1].strip()
+    data = soup.find("div", class_="grid topSection")
+    # print(data)
+    name = data.find("a", {"data-cartitemsource":"wine-page-master-link"}).text.strip()
+    year = data.find("div", class_="wineHeadline-module__vintage--1UHSo").text.split()[-1].strip()
     winery = data.find("a", {'data-cy':"breadcrumb-winery"}).text
     wine_type = data.find("a", {'data-cy':"breadcrumb-winetype"}).text
     country = data.find("a", {'data-cy':"breadcrumb-country"}).text
@@ -47,7 +49,7 @@ for card_url in get_url():
     wines = {"wine_name": name, "wine_type": wine_type, "winery_name": winery, "country": country, "region": region, "grape": grape, "year": year, "avg_price": avg_price, "viv_rating": viv_rating, "img_link": img_url}
     wines_to_db.append(wines)
     
-    # print('название: ', name, "\n Год: ", year,'\n компания:', winery,'\n тип вина:', wine_type,'/n страна производства:', country,'\n регион:', region,'\n тип винограда:', grape,'\n рейтинг вивино:', viv_rating,'\n средняя цена', avg_price, '/',img_url, "\n")
+    print('название: ', name, "\n Год: ", year,'\n компания:', winery,'\n тип вина:', wine_type,'\n страна производства:', country,'\n регион:', region,'\n тип винограда:', grape,'\n рейтинг вивино:', viv_rating,'\n средняя цена', avg_price, '/',img_url, "\n")
 
 # print(wines_to_db)
 
