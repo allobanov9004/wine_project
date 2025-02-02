@@ -9,7 +9,7 @@ class User(UserMixin, Base):
 
     id = Column(Integer, primary_key=True)
     username = Column(String(50), index=True, unique=True)
-    password_hash = Column(String(128), nullable=False)
+    password_hash = Column(String(256), nullable=False)
     role = Column(String(10), index=True)
     email = Column(String(50), unique=True, nullable=False)
 

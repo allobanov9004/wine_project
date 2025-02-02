@@ -1,8 +1,11 @@
-from flask import Flask, render_template, request, redirect, url_for
-from flask_sqlalchemy import SQLAlchemy
+from flask import Flask, render_template, request, redirect, url_for, flash
+from flask_admin import Admin
+from flask_login import LoginManager
+
 from models import Wine, User
 from werkzeug.security import generate_password_hash
-from flask_sqlalchemy import pagination
+from flask_admin.contrib.sqla import ModelView
+
 
 from db import db_session
 
@@ -16,6 +19,12 @@ from flask_paginate import Pagination, get_page_parameter, get_page_args
 
 app = Flask(__name__)
 app.config["SECRET_KEY"] = "you-will-never-guess"
+
+admin = Admin(app, name='wineproject')
+admin.add_view(ModelView(User, db_session))
+admin.add_view(ModelView(Wine, db_session))
+
+login_manager = LoginManager()
 
 
 @app.route("/")
@@ -39,7 +48,7 @@ def catalog():
 
 
     pagination_wines = get_wines(offset=offset, per_page=per_page)
-    pagination = Pagination(page=page, per_page=per_page, total=total, search=search, record_name='wines')
+    pagination = Pagination(page=page, per_page=per_page, total=total, search=search, record_name='позиции')
 
     return render_template("catalog.html", data=pagination_wines, pagination=pagination, page=page, per_page=per_page)
 
@@ -58,15 +67,24 @@ def about():
 @app.route("/register", methods=["GET", "POST"])
 def register():
     if request.method == "POST":
-        email = request.form.get('email')
-        name = request.form.get('name')
-        password = request.form.get('password')
-        
+        if len(request.form.get('username')) > 4 and request.form.get('password') == request.form.get('password2'):
+            hash = generate_password_hash(request.form.get('password'))
+            email = request.form.get('email')
+            username = request.form.get('username')
+            new_user = User(email=email, username=username, password_hash=hash)
 
-        new_user = User(email=email, username=name, password_hash=password)
+            # try:
+            db_session.add(new_user)
+            db_session.commit()
+            flash("вы успешно зарегистрировались")
+            # except Exception as exc:
+            #     print(exc)
+         
 
-        db_session.add(new_user)
-        db_session.commit()
+        else:
+            flash('Неверно введены данные')
+
+
     return render_template('register.html')
 
 

@@ -53,5 +53,8 @@ for card_url in get_url():
 
 # print(wines_to_db)
 
-db_session.bulk_insert_mappings(Wine, wines_to_db)
-db_session.commit()
+try:
+    db_session.bulk_insert_mappings(Wine, wines_to_db)
+    db_session.commit()
+except Exception as e:
+    print(e)

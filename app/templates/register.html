@@ -1,32 +1,50 @@
 {% extends 'base.html' %}
 
-
 {% block content %}
-<div class="column is-4 is-offset-4">
-  <h3 class="title">Регистрация</h3>
-  <div class="box">
-      <form method="POST" action="/register">
-          <div class="field">
-              <div class="control">
-                  <input class="input is-large" type="email" name="email" placeholder="Email" autofocus="">
-              </div>
-          </div>
 
-          <div class="field">
-              <div class="control">
-                  <input class="input is-large" type="text" name="name" placeholder="Имя пользователя" autofocus="">
-              </div>
-          </div>
+{% with messages = get_flashed_messages() %}
+  {% if messages %}
+    <ul class=flashes>
+    {% for message in messages %}
+      <li>{{ message }}</li>
+    {% endfor %}
+    </ul>
+  {% endif %}
+{% endwith %}
 
-          <div class="field">
-              <div class="control">
-                  <input class="input is-large" type="password" name="password" placeholder="Пароль">
-              </div>
-          </div>
+<div class="container">
+    
+    <form action="/register" method="post" class="form-contact">
+        <h1 class="h3 mb-3 fw-normal">Регистрация</h1>
 
-          <button class="button is-block is-info is-large is-fullwidth">Отправить</button>
-      </form>
-  </div>
+        <div class="form-floating">
+            <input type="username" name="username" class="form-control" id="floatingInput" placeholder="username" value="" required>
+            <label for="floatingInput">Имя пользователя</label>
+        </div>
+
+
+            <div class="form-floating">
+                <input type="email" name="email" class="form-control" id="floatingInput" placeholder="name@example.com" value="" required>
+                <label for="floatingInput">Электронная почта</label>
+            </div>
+
+            <div class="form-floating">
+                <input type="password" name="password" class="form-control" id="floatingPassword" placeholder="Password" value="" required>
+                <label for="floatingPassword">Пароль</label>
+            </div>
+
+            <div class="form-floating">
+                <input type="password" name="password2" class="form-control" id="floatingPassword" placeholder="Password" value="" required>
+                <label for="floatingPassword">Пароль еще раз</label>
+            </div>
+
+
+
+            <button class="w-50 btn btn-lg btn-primary" type="submit">Регистрация</button>
+
+            <p><a href="{{ url_for('login') }}" class="nav-link px-3">логин</a>
+
+    </form>
 </div>
 
   {% endblock  %}
