@@ -18,7 +18,45 @@
     <div class="col-md-3 order-md-1">
       <img src="{{data.img_link}}">
     </div>
+   
+
+
+
+
   </div>
+  <div class="featurette-heading fw-normal lh-1"> комментарии:</div>
+ 
+<div class="" id="comments - {{ data.id }}">
+    <div class="card">
+              <div class="card-body" id="comments-{{ comm.author }}">
+                      {% for e in comm %}
+                          <div class="comment">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div>
+                                    {{e.user.username}}: {{e.text}}
+                                </div>
+                                
+                                <div>
+                                    <small class="text-muted">{{ e.date_created }}</small>
+                                </div>
+                              </div></div>
+                              <br>
+                               
+                    {% endfor %}
+                                </div>
+              </div>
+    </div>
+
+
+
+  </div>
+<br>
+<div class="container">
+<form class="input-group mb-3" method="POST" action="/create-comment/{{ data.id }}">
+  <input type="text" id="text" name="text" class="form-control" placeholder="Оставьте свой комментарий" />
+  <button type="submit" class="btn btn-primary">Оставить комментарий</button>
+</form></div>
+<br>
 
 
 {% endblock  %}

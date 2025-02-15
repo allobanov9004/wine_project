@@ -3,28 +3,37 @@
 
 {% block content %}
 
+{% with messages = get_flashed_messages() %}
+  {% if messages %}
+    <ul class=flashes>
+    {% for message in messages %}
+      <li>{{ message }}</li>
+    {% endfor %}
+    </ul>
+  {% endif %}
+{% endwith %}
 
 <div class="container">
 
-        <form action="/login" method="post" class="form-contact">
-            <h1 class="h3 mb-3 fw-normal">Login</h1>
-
+        <form action="/login" method="POST" class="form-contact">
+            <h1 class="h3 mb-3 fw-normal">Войти в учетную запись</h1>
+<br>
                 <div class="form-floating">
-                    <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
-                    <label for="floatingInput">Электронная почта</label>
+                    <input type="username" name="username" class="form-control" id="floatingInput" placeholder="user">
+                    <label for="floatingInput">Логин</label>
                 </div>
-
+<br>
                 <div class="form-floating">
-                    <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
+                    <input type="password" name="password" class="form-control" id="floatingPassword" placeholder="Password">
                     <label for="floatingPassword">Пароль</label>
                 </div>
-
+<br>
                 <div class="checkbox mb-3">
                     <label>
                         <input type="checkbox" value="remember-me"> Запомнить
                     </label>
                 </div>
-
+<br>
                 <button class="w-50 btn btn-lg btn-primary" type="submit">Войти</button>
 
                 <p><a href="{{ url_for('register') }}" class="nav-link px-3">Регистрация</a>

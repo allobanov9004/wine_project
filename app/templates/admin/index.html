@@ -1,5 +1,11 @@
-{% extends 'admin/master.html' %}
 
-{% block body %}
-<a href="{{ url_for("index") }}" class="nav-link px-2 link-secondary">back</a>
-{% endblock %}
+{% if current_user.is_admin %}
+    {% extends 'admin/master.html' %}
+
+    {% block body %}
+    <a href="{{ url_for("index") }}" class="nav-link px-2 link-secondary">back</a>
+    {% endblock %}
+
+    {% else %}
+    нет доступа
+{% endif %}
